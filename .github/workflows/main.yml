@@ -1,5 +1,13 @@
 name: Main workflow
-on: push
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 env: # Set the secret as an input
   docker_username: madsrurup 
   docker_password: ${{ secrets.GITHUB_TOKEN }} #Nees to be set to be made available to the workflow
@@ -10,7 +18,9 @@ jobs:
     container: gradle:6-jdk11
     steps:
       - name: Clone down repository
-        uses: actions/checkout@v4       
+        uses: actions/checkout@v4   
+        with:
+          fetch-depth: 0
       - run: ci/build-app.sh
       - name: Unit Test
         run: ci/unit-test-app.sh
