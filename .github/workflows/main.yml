@@ -16,5 +16,4 @@ jobs:
       - name: runs a one-line script
         run: echo Hello World!
       - name: run a multiline script
-        run: |
-          echo something idk
+        run: echo something idk
